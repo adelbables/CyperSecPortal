@@ -39,3 +39,4 @@ def decrypt(img_path):
     message = [chr(int(''.join(i), 2)) for i in message]
     message = ''.join(message)
     print(message)
+    return message
