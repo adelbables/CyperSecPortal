@@ -9,6 +9,11 @@
         <tbody>
         {{ upload_form.as_p }}
         <p>
+         <form name="secret" action="" method="GET">
+               Your Secret: <input type="text" name="secret_text">
+         </form>
+        </p>
+        <p>
             <button type="submit">hochladen</button>
         </p>
         </tbody>
