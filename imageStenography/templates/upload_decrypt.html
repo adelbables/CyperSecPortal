@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="de">
+<head><title>"Upload Image and decrypt"</title></head>
+<body>
+<h1>Bild hochladen</h1>
+<form enctype="multipart/form-data" method="post" action="">
+    {% csrf_token %}
+    <table>
+        <tbody>
+        {{ upload_form.as_p }}
+        <p>
+            <button type="submit">decrypt</button>
+        </p>
+        </tbody>
+    </table>
+</form>
+<p><h2>{{ secret }}</h2></p>
+</body>
+</html>

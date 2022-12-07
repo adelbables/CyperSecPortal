@@ -1,11 +1,12 @@
 import os
 
 from django import forms
-from django.http import HttpResponseRedirect, FileResponse
+from django.http import FileResponse
 from django.shortcuts import render
 
 from CyperSecPortal.settings import MEDIA_ROOT
 from imageStenography import models
+from .apps.decrypt_data_from_image import decrypt
 from .apps.encrypt_data_in_image import encrypt_data_into_image
 
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
@@ -14,18 +15,26 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 # Create your views here.
 
 
-class ImageForm(forms.ModelForm):
+class ImageEncryptForm(forms.ModelForm):
     """Klasse zur Formularerstellung."""
 
     class Meta:
-        model = models.Image
+        model = models.ImageToEncrypt
         exclude = []
 
 
-async def upload(request):
+class ImageDecryptForm(forms.ModelForm):
+    """Klasse zur Formularerstellung."""
+
+    class Meta:
+        model = models.ImageToDecrypt
+        exclude = ['name']
+
+
+async def upload_encrypt(request):
     # werden Formulardaten geschickt?
     if request.method == "POST":
-        form = ImageForm(request.POST, request.FILES)
+        form = ImageEncryptForm(request.POST, request.FILES)
         if form.is_valid():  # Formular überprüfen
             form.save()
             extension = os.path.splitext(request.FILES['file'].name)
@@ -34,5 +43,20 @@ async def upload(request):
                 request.POST['secret_text'])
             return FileResponse(open('%s/images/encrypted/encrypted_image.png' % MEDIA_ROOT, 'rb'), as_attachment=True)
     else:
-        form = ImageForm()  # leeres Formular
-    return render(request, 'upload.html', dict(upload_form=form))
+        form = ImageEncryptForm()  # leeres Formular
+    return render(request, 'upload_encrypt.html', dict(upload_form=form))
+
+
+async def upload_decrypt(request):
+    # werden Formulardaten geschickt?
+    if request.method == "POST":
+        form = ImageDecryptForm(request.POST, request.FILES)
+        if form.is_valid():  # Formular überprüfen
+            form.save()
+            path_to_image = '%s/images/toBeDecrypted/%s' % (MEDIA_ROOT, request.FILES['file'].name)
+            print(path_to_image)
+            secret = decrypt(path_to_image)
+            return render(request, 'upload_decrypt.html', dict(upload_form=form, secret=secret))
+    else:
+        form = ImageDecryptForm()  # leeres Formular
+    return render(request, 'upload_decrypt.html', dict(upload_form=form))

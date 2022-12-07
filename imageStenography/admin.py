@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from imageStenography.models import Image
+from imageStenography.models import ImageToEncrypt
 
 # Register your models here.
-admin.site.register(Image)
+admin.site.register(ImageToEncrypt)
