@@ -8,8 +8,8 @@ def rename_and_upload_to_encrypt(instance, filename):
     return new_filename
 
 
-def upload_to_decrypt(instace, filename):
-    instace.name = filename
+def upload_to_decrypt(instance, filename):
+    instance.name = filename
     new_filename = "images/toBeDecrypted/%s" % filename
     return new_filename
 
@@ -17,7 +17,7 @@ def upload_to_decrypt(instace, filename):
 # Create your models here.
 class ImageToEncrypt(models.Model):
     name = models.CharField(max_length=200)
-    file = models.ImageField('image', upload_to=upload_to_decrypt, blank=True, null=True)
+    file = models.ImageField('image', upload_to=rename_and_upload_to_encrypt, blank=True, null=True)
 
 
 class ImageToDecrypt(models.Model):
