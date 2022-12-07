@@ -3,7 +3,7 @@ import cv2
 image_display_size = 500, 350
 
 
-def decrypt(img_path):
+async def decrypt(img_path):
 
     # Algorithm to decrypt the data from the image
     img = cv2.imread(img_path)

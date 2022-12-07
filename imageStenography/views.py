@@ -38,10 +38,11 @@ async def upload_encrypt(request):
         if form.is_valid():  # Formular überprüfen
             form.save()
             extension = os.path.splitext(request.FILES['file'].name)
+            print(request.FILES['file'].name)
             await encrypt_data_into_image(
                 '%s/images/toBeEncrypted/%s%s' % (MEDIA_ROOT, form.cleaned_data['name'], extension[1]),
-                request.POST['secret_text'])
-            return FileResponse(open('%s/images/encrypted/encrypted_image.png' % MEDIA_ROOT, 'rb'), as_attachment=True)
+                request.POST['secret_text'], '%s%s' %(form.cleaned_data['name'], extension[1]))
+            return FileResponse(open('%s/images/encrypted/%s%s' % (MEDIA_ROOT, form.cleaned_data['name'], extension[1]), 'rb'), as_attachment=True)
     else:
         form = ImageEncryptForm()  # leeres Formular
     return render(request, 'upload_encrypt.html', dict(upload_form=form))
@@ -55,7 +56,7 @@ async def upload_decrypt(request):
             form.save()
             path_to_image = '%s/images/toBeDecrypted/%s' % (MEDIA_ROOT, request.FILES['file'].name)
             print(path_to_image)
-            secret = decrypt(path_to_image)
+            secret = await decrypt(path_to_image)
             return render(request, 'upload_decrypt.html', dict(upload_form=form, secret=secret))
     else:
         form = ImageDecryptForm()  # leeres Formular

@@ -8,7 +8,7 @@ from CyperSecPortal.settings import MEDIA_ROOT
 image_display_size = 300, 300
 
 
-async def encrypt_data_into_image(path_image, data):
+async def encrypt_data_into_image(path_image, data, image_name):
 
     img = cv2.imread(path_image)
 
@@ -48,4 +48,4 @@ async def encrypt_data_into_image(path_image, data):
     # Write the encrypted image into a new file
     if not os.path.exists("%s/images/encrypted/" % MEDIA_ROOT):
         os.makedirs("%s/images/encrypted/" % MEDIA_ROOT)
-    cv2.imwrite("%s/images/encrypted/encrypted_image.png" % MEDIA_ROOT, img)
+    cv2.imwrite("%s/images/encrypted/%s" % (MEDIA_ROOT, image_name), img)
