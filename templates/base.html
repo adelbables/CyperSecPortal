@@ -1,10 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
         <meta charset="UTF-8">
         <title>{% block title%}{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="{% static 'boot/css/bootstrap.css' %}"/>
+        <script type="text/javascript" src="{% static 'boot/js/bootstrap.bundle.min.js' %}"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -13,36 +13,45 @@
                     CyperSecPortal
               </a>
             <div class="container">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                         <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'upload and decrypt' %}">Link</a>
-                        </li>
                         <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
-                                </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Stenography
+                            </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{% url 'upload and encrypt' %}">upload and encrypt image</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{%  url 'upload and decrypt' %}">upload and decrypt image</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Passwords
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'generate_password' %}">generate a save Password</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{%  url 'validate_password' %}">validate your Password</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
+                <div class="text-end">
+                    {% if user.is_authenticated %}
+                        <button type="button" class="btn btn-outline-light me-2" href="{% url "logout" %}" role="button">Logout</button>
+                    {% else %}
+                        <button type="button" class="btn btn-outline-light me-2" href="{% url "login" %}" role="button">Login</button>
+                        <button type="button" class="btn btn-warning" href="{% url "sign up" %}" role="button">Sign-up</button>
+                    {% endif %}
+                 </div>
             </div>
         </nav>
 
