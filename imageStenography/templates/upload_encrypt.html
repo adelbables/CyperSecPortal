@@ -1,23 +1,24 @@
-<!doctype html>
-<html lang="de">
-<head><title>Upload Image and encrypt</title></head>
-<body>
-<h1>Bild hochladen</h1>
-<form enctype="multipart/form-data" method="post" action="">
-    {% csrf_token %}
-    <table>
-        <tbody>
-        {{ upload_form.as_p }}
-        <p>
-         <form name="secret" action="" method="GET">
-               Your Secret: <input type="text" name="secret_text">
-         </form>
-        </p>
-        <p>
-            <button type="submit">hochladen</button>
-        </p>
-        </tbody>
-    </table>
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}
+    Upload & encrypt
+{% endblock %}
+
+{% block contents %}
+    <h1>upload your image to encrypt it</h1>
+    <form enctype="multipart/form-data" method="post" action="">
+        {% csrf_token %}
+        <table>
+            <tbody>
+            {{ upload_form.as_p }}
+            <p>
+             <form name="secret" action="" method="GET">
+                   Your Secret: <input type="text" name="secret_text">
+             </form>
+            </p>
+            <p>
+                <button type="submit">hochladen</button>
+            </p>
+            </tbody>
+        </table>
+    </form>
+{% endblock %}
