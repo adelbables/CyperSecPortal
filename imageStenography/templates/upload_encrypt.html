@@ -1,24 +1,61 @@
 {% extends 'base.html' %}
+ {% load static %}
 {% block title %}
     Upload & encrypt
 {% endblock %}
 
 {% block contents %}
-    <h1>upload your image to encrypt it</h1>
-    <form enctype="multipart/form-data" method="post" action="">
-        {% csrf_token %}
-        <table>
-            <tbody>
-            {{ upload_form.as_p }}
-            <p>
-             <form name="secret" action="" method="GET">
-                   Your Secret: <input type="text" name="secret_text">
-             </form>
-            </p>
-            <p>
-                <button type="submit">hochladen</button>
-            </p>
-            </tbody>
-        </table>
-    </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <script src="{% static "js/upload.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/upload.css" %}">
+    <div class="container-upload card-0 justify-content-center ">
+        <div class="card-body px-sm-4 px-0">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-10 col">
+                    <h3 class="font-weight-bold ml-md-0 mx-auto text-center text-sm-left"> upload your image to encrypt it </h3>
+                </div>
+            </div>
+            <form enctype="multipart/form-data" method="post" action="">
+                {% csrf_token %}
+                <div class="row justify-content-center round">
+                    <div class="col-lg-10 col-md-12 ">
+                        <div class="card shadow-lg card-1">
+                            <div class="card-body inner-card">
+                                <div class="row d-flex align-items-center justify-content-center">
+                                    <div class="col-md-12 col-lg-10 col-12">
+                                        <div class="form-outline form-group">
+                                            <label class="my-auto d-flex justify-content-center" for="image-title">Image Title</label>
+                                            <input type="text" class="form-control form-control-l" name="name" id="image-title" placeholder="give you image a name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8 col-lg-10 col-8">
+                                        <div class="form-group files py-5">
+                                            <label class="my-auto d-flex justify-content-center ">Upload Your File </label>
+                                            <input id="file" type="file" name="file" class="form-control-upload" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10 col-8">
+                                        <div class="form-group">
+                                            <label class="my-auto d-flex justify-content-center" for="secret">Your Secret</label>
+                                            <textarea class="form-control" name="secret_text" id="secret" placeholder="wirte here what you would like to hide" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center ">
+                                    <div class="col-md-8 col-lg-10 col-8 d-flex justify-content-center py-3">
+                                        <button type="submit" class="btn btn-primary btn-block ">
+                                            <small class="font-weight-bold">Request a Quote</small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
