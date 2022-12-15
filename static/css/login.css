@@ -1,0 +1,28 @@
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;}
+
+.register-btn {
+    background-color: #3b5998
+}
+.card {
+  margin-top: 100px;
+  background: hsla(0, 0%, 100%, 0.2);
+  backdrop-filter: blur(30px);
+}
+
+#login_video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
