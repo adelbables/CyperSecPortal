@@ -3,8 +3,11 @@
 <html lang="en">
     <head>
     <meta charset="UTF-8">
-        <title>{% block title%}{% endblock %}</title>
-            <link rel="stylesheet" type="text/css" href="{% static 'boot/css/bootstrap.css' %}"/>
+        <link rel="icon" href="{% static "images/A7B_logo.png" %}" type="image/x-icon">
+        <title>
+            {% block title%}{% endblock %}
+        </title>
+        <link rel="stylesheet" type="text/css" href="{% static 'boot/css/bootstrap.css' %}"/>
         <script type="text/javascript" src="{% static 'boot/js/bootstrap.bundle.min.js' %}"></script>
     </head>
     <body>
