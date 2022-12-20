@@ -1,6 +1,7 @@
 import os
 
 from django import forms
+from django.contrib.auth.decorators import login_required
 from django.http import FileResponse
 from django.shortcuts import render
 
@@ -30,7 +31,7 @@ class ImageDecryptForm(forms.ModelForm):
         model = models.ImageToDecrypt
         exclude = ['name']
 
-
+@login_required
 async def upload_encrypt(request):
     # werden Formulardaten geschickt?
     if request.method == "POST":
@@ -47,7 +48,7 @@ async def upload_encrypt(request):
         form = ImageEncryptForm()  # leeres Formular
     return render(request, 'upload_encrypt.html', dict(upload_form=form))
 
-
+@login_required()
 async def upload_decrypt(request):
     # werden Formulardaten geschickt?
     if request.method == "POST":
