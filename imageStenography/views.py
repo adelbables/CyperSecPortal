@@ -1,6 +1,8 @@
 import os
 
+from asgiref.sync import sync_to_async, async_to_sync
 from django import forms
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse
 from django.shortcuts import render
@@ -31,7 +33,12 @@ class ImageDecryptForm(forms.ModelForm):
         model = models.ImageToDecrypt
         exclude = ['name']
 
+
+# @login_required doesn't support async processes that why we need to convert it to sync then back to async
+# https://code.djangoproject.com/ticket/31949
+@sync_to_async
 @login_required
+@async_to_sync
 async def upload_encrypt(request):
     # werden Formulardaten geschickt?
     if request.method == "POST":
@@ -42,13 +49,20 @@ async def upload_encrypt(request):
             print(request.FILES['file'].name)
             await encrypt_data_into_image(
                 '%s/images/toBeEncrypted/%s%s' % (MEDIA_ROOT, form.cleaned_data['name'], extension[1]),
-                request.POST['secret_text'], '%s%s' %(form.cleaned_data['name'], extension[1]))
-            return FileResponse(open('%s/images/encrypted/%s%s' % (MEDIA_ROOT, form.cleaned_data['name'], extension[1]), 'rb'), as_attachment=True)
+                request.POST['secret_text'], '%s%s' % (form.cleaned_data['name'], extension[1]))
+            return FileResponse(
+                open('%s/images/encrypted/%s%s' % (MEDIA_ROOT, form.cleaned_data['name'], extension[1]), 'rb'),
+                as_attachment=True)
+        else:
+            messages.error(request, "sorry, something went wrong. Please try again")
     else:
         form = ImageEncryptForm()  # leeres Formular
     return render(request, 'upload_encrypt.html', dict(upload_form=form))
 
-@login_required()
+
+@sync_to_async
+@login_required
+@async_to_sync
 async def upload_decrypt(request):
     # werden Formulardaten geschickt?
     if request.method == "POST":
@@ -58,6 +72,7 @@ async def upload_decrypt(request):
             path_to_image = '%s/images/toBeDecrypted/%s' % (MEDIA_ROOT, request.FILES['file'].name)
             print(path_to_image)
             secret = await decrypt(path_to_image)
+            messages.success(request, "Your image was successfully decrypted")
             return render(request, 'upload_decrypt.html', dict(upload_form=form, secret=secret))
     else:
         form = ImageDecryptForm()  # leeres Formular
