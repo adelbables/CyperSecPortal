@@ -1,8 +1,56 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}
-    Welcome
+    CyperSecPortal
 {% endblock %}
 
 {% block contents %}
-    <h1>Welcome</h1>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to CyperSecPortal</h1>
+        <p class="lead text-center">
+            We understand the importance of security and privacy online, which is why we have developed this Web-App to
+            help you create strong, unique passwords and hide sensitive information in plain sight.
+
+        </p>
+        <div class="row mt-5">
+            <div class="col-md-6  d-flex justify-content-start py-5">
+                <div class="card bg-primary text-bg-dark" style="width: 40rem;">
+                    <img src="{% static 'images/index/password_generator.png' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Password Generator</h5>
+                        <p class="card-text">Our password generator is designed to help you create strong, unique
+                            passwords that are difficult for hackers to guess. We understand the importance of security
+                            and privacy, and our password generator is an easy and convenient way to protect your
+                            accounts and personal information. Simply click the "Generate Password" button and a new
+                            password will be created for you.
+                            <br> if you're not sure if your password strong then check our Password validator Simply
+                            enter your password and click "Validate" to see how it measures up. Our password validator
+                            will rate your password based on its strength
+                        </p>
+                        <a href="{% url 'generate_password' %}" class="btn btn-outline-warning">try it now!</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 d-flex justify-content-end py-5">
+                <div class="card bg-primary text-bg-dark" style="width: 40rem;">
+                    <img src="{% static 'images/index/encrypt.png' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Stenography</h5>
+                        <p class="card-text">Our stenography tool is an innovative way to communicate securely and
+                            protect your privacy. It allows you to encode a message into an image, which can then be
+                            decoded by anyone who knows that the image encrypted is and has an account for our website.
+                            This is a great way to share sensitive information without worrying about it being
+                            intercepted or compromised. Simply type your message into the text box and click
+                            "Encrypt" to create a stenography image. To decode the message, go to the decrypt page than
+                            simply upload your encrypted image and click "Decrypt".
+                        </p>
+                        <a href="{% url 'upload and encrypt' %}" class="btn btn-outline-warning">try it now!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
