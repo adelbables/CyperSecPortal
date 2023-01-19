@@ -1,6 +1,6 @@
 from django.urls import path
 
-from passwordGenerator import views
+from passwordManagement import views
 
 urlpatterns = [
     path('password_generator/', views.generate, name="generate_password"),

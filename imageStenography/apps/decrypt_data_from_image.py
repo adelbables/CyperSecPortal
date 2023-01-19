@@ -3,8 +3,7 @@ import cv2
 image_display_size = 500, 350
 
 
-async def decrypt(img_path):
-
+async def decrypt_data_form_image(img_path):
     # Algorithm to decrypt the data from the image
     img = cv2.imread(img_path)
     data = []
@@ -38,5 +37,4 @@ async def decrypt(img_path):
     # join all the letters to form the message.
     message = [chr(int(''.join(i), 2)) for i in message]
     message = ''.join(message)
-    print(message)
     return message

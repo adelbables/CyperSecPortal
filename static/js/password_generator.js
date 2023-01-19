@@ -1,5 +1,5 @@
 
-// Clear the concole on every refresh
+// Clear the console on every refresh
 console.clear();
 // set the body to full height
 // document.body.style.height = `${innerHeight}px`
@@ -12,7 +12,7 @@ const sliderProps = {
 	background: "rgba(255, 255, 255, 0.214)",
 };
 
-// Selecting the Range Slider container which will effect the LENGTH property of the password.
+// Selecting the Range Slider container which will affect the LENGTH property of the password.
 const slider = document.querySelector(".range__slider");
 
 // Text which will show the value of the range slider.
@@ -28,8 +28,7 @@ applyFill(slider.querySelector("input"));
 // This function is responsible to create the trailing color and setting the fill.
 function applyFill(slider) {
 	const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
-	const bg = `linear-gradient(90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage +
+	slider.style.background = `linear-gradient(90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage +
 			0.1}%)`;
-	slider.style.background = bg;
 	sliderValue.setAttribute("data-length", slider.value);
 }

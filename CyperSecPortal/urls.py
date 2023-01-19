@@ -23,7 +23,7 @@ from CyperSecPortal import views
 
 urlpatterns = [
                   path('', include('imageStenography.urls')),
-                  path('', include('passwordGenerator.urls')),
+                  path('', include('passwordManagement.urls')),
                   path('', include('accounts.urls')),
                   path('', views.index, name='home'),
                   path('admin/', admin.site.urls),

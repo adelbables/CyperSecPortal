@@ -9,7 +9,6 @@ image_display_size = 300, 300
 
 
 async def encrypt_data_into_image(path_image, data, image_name):
-
     img = cv2.imread(path_image)
 
     # data encrypt message

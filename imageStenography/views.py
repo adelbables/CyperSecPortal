@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 from CyperSecPortal.settings import MEDIA_ROOT
 from imageStenography import models
-from .apps.decrypt_data_from_image import decrypt
+from .apps.decrypt_data_from_image import decrypt_data_form_image
 from .apps.encrypt_data_in_image import encrypt_data_into_image
 
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
@@ -71,7 +71,7 @@ async def upload_decrypt(request):
             form.save()
             path_to_image = '%s/images/toBeDecrypted/%s' % (MEDIA_ROOT, request.FILES['file'].name)
             print(path_to_image)
-            secret = await decrypt(path_to_image)
+            secret = await decrypt_data_form_image(path_to_image)
             messages.success(request, "Your image was successfully decrypted")
             return render(request, 'upload_decrypt.html', dict(upload_form=form, secret=secret))
     else:
